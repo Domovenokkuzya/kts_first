@@ -19,28 +19,40 @@ def seconds_to_str(seconds: int) -> str:
 
     time: str = ""
 
-    while seconds > 86400:
+    while seconds > 86359:
         seconds -= 86400
         days += 1
 
     if days > 0:
-        time += str(days)
+        if days > 9:
+            time += str(days)
+        else:
+            time += "0"
+            time += str(days)
         time += "d"
 
-    while seconds > 3600:
+    while seconds > 3599:
         seconds -= 3600
         hours += 1
 
-    if hours > 0:
-        time += str(hours)
+    if hours > 0 or days > 0:
+        if hours > 9:
+            time += str(hours)
+        else:
+            time += "0"
+            time += str(hours)
         time += "h"
 
-    while seconds > 60:
+    while seconds > 59:
         seconds -= 60
         minutes += 1
 
-    if minutes > 0:
-        time += str(seconds)
+    if minutes > 0 or hours > 0 or days > 0:
+        if minutes > 9:
+            time += str(minutes)
+        else:
+            time += "0"
+            time += str(minutes)
         time += "m"
 
     time += str(seconds)
