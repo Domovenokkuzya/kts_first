@@ -13,8 +13,10 @@ def even_odd(arr: list[int]) -> float:
     chet: int = 0
     for i in arr:
         if i % 2 == 0:
-            nechet += i
-        else:
             chet += i
+        else:
+            nechet += i
+    if nechet == 0:
+        return 0
     return float(chet/nechet)
     raise NotImplementedError
