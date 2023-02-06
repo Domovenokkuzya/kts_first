@@ -55,7 +55,11 @@ def seconds_to_str(seconds: int) -> str:
             time += str(minutes)
         time += "m"
 
-    time += str(seconds)
+    if seconds > 9:
+        time += str(seconds)
+    else:
+        time += "0"
+        time += str(seconds)
     time += "s"
 
     return time
