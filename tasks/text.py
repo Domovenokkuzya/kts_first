@@ -27,7 +27,6 @@ def find_shortest_longest_word(text: str) -> tuple[Optional[str], Optional[str]]
                 long = word
             word = ""
 
-    print(short, long)
     if short != "":
         result = (short, long)
     return result
