@@ -58,57 +58,44 @@ class Graph:
 
     def bfs(self) -> list[Node]:
         path: list[Node] = []
+        rows: list[list[Node]] = [[]]
+        row: list[list[Node]] = []
+        rowA: list[Node] = []
+
         start: Node = self._root
         present: Node = self._root
-        other: Node = self._root
-        path.append(start)
-        k: int = 0
-        for i in start.outbound:
-            present = i
-            if present not in path:
-                path.append(present)
-            for j in present.outbound:
-                if j not in path:
-                    path.append(j)
-                    while j.outbound:
-                        if k < len(j.outbound):
-                            other = j.outbound[k]
-                            k += 1
-                            if other not in path:
-                                path.append(other)
-                            else:
-                                break
-                        else:
-                            k = 0
-                            break
+
+        k: int = 1
+
+        rowA.append(start)
+        rows.append(rowA)
+
+        for node in start.outbound:
+            if node not in rows[1]:
+                row.append(node)
+        rows.append(row)
+        row = []
+
+        for node_row in rows[2]:
+            for node in node_row.outbound:
+                if node not in rows[1] and node not in rows[2]:
+                    row.append(node)
+        rows.append(row)
+        row = []
+
+        for node_row in rows[3]:
+            for node in node_row.outbound:
+                if node not in rows[1] and node not in rows[2] and node not in rows[3]:
+                    row.append(node)
+        rows.append(row)
+        row = []
+
+        print(rows)
+        for node_row in rows:
+            for node in node_row:
+                path.append(node)
+
 
         print(path)
         return path
         raise NotImplementedError
-
-
-a = Node('a')
-b = Node('b')
-c = Node('c')
-d = Node('d')
-e = Node('e')
-f = Node('f')
-g = Node('g')
-h = Node('h')
-i = Node('i')
-k = Node('k')
-a.point_to(b)
-b.point_to(c)
-c.point_to(d)
-d.point_to(a)
-b.point_to(d)
-a.point_to(e)
-e.point_to(f)
-e.point_to(g)
-f.point_to(i)
-f.point_to(h)
-g.point_to(k)
-g = Graph(a)
-
-g.bfs()
-
